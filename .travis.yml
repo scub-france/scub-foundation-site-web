@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - node
+branches:
+  only:
+    - master
+script:
+  - npm install ftp
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: 'find ./ -type f -exec curl -u $FTP_USERNAME:$FTP_PASSWORD --ftp-create-dirs -T {} ftp://ftp.scub-foundation.org/www/{} ";"'
+  on:
+    branch: master
+
